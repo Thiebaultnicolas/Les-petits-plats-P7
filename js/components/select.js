@@ -71,7 +71,7 @@ class Select {
     }
 
     // Affiche les autres éléments filtrés
-    filteredData.forEach((element) => {
+    filteredData.forEach((element) => {      
       if (!this.selectedItems.includes(element)) {
         const el = document.createElement("li");
         el.innerText = element;
@@ -123,6 +123,11 @@ class Select {
       this.closeDropdown();
     }
     this.ignoreClose = false;
+  }
+
+  setData(data){
+    this.data = data
+    this.filterData('', this.list)
   }
 
   // Rendu du composant
@@ -207,6 +212,19 @@ class SelectIngredients extends Select{
 
   getSelectedIngredients(){
     return this.selectedIngredients
+  }
+
+  updateItems(items){
+    /** Afficher ou cacher les éléments qui ne correspondent pas au tri sélectionné */
+    const list = this.container.querySelectorAll('.select-content li:not(.selected-item, .separator)')
+    list.forEach(element => {      
+      if(!items.includes(element.innerText)){
+        element.style.display = 'none'
+      } else {
+        element.style.display = 'block'
+      }
+    })
+
   }
 }
 
